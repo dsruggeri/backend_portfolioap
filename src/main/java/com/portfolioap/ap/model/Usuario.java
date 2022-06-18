@@ -26,8 +26,10 @@ public class Usuario  {
     
     @OneToMany(mappedBy = "idEducacion")
     private List<Educacion> educacionUsuario;
+    
     @OneToMany(mappedBy = "idHabilidad")
     private List<Habilidad> habilidadUsuario;
+    
     @OneToMany (mappedBy = "idExperiencia")
     private List<Experiencia> experienciaUsuario;
     
