@@ -22,8 +22,13 @@ public class UsuarioService {
     //CRUD básico
     
     //Guardar unUsuario en la base de datos (este método no lo vamos a usar)
-    public Usuario addHabilidad(Usuario usuario){
+    public Usuario addUsuario(Usuario usuario){
         return usuarioRepo.save(usuario);
+    } 
+    
+    //Traer un Usuario de la base de datos
+    public Usuario getUsuario(String id){
+        return usuarioRepo.findById(id).orElse(null);
     } 
     
     //Listar todas los Usuarios
