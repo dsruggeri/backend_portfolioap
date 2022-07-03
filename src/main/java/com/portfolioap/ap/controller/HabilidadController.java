@@ -36,7 +36,7 @@ public class HabilidadController {
 
     //trae TODAS las habilidades
     @GetMapping("/listar")
-    public ResponseEntity<List<Habilidad>> listHabilidad(@RequestBody List<Habilidad> lista) {
+    public ResponseEntity<List<Habilidad>> listHabilidad() {
         List<Habilidad> habLista = habilidadService.listHabilidad();
         return new ResponseEntity<>(habLista, HttpStatus.OK);
     }

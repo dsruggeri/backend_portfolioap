@@ -34,7 +34,7 @@ public class EducacionController {
     }
     
     @GetMapping("/listar")
-    public ResponseEntity<List<Educacion>> listEducacion(@RequestBody List<Educacion> lista){
+    public ResponseEntity<List<Educacion>> listEducacion(){
     
     List<Educacion> eduLista = eduService.listEducacion();
     

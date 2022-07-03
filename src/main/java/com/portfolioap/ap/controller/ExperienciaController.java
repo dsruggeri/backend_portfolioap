@@ -36,7 +36,7 @@ public class ExperienciaController {
 
     //trae TODAS las experiencias
     @GetMapping("/listar")
-    public ResponseEntity<List<Experiencia>> listExperiencia(@RequestBody List<Experiencia> lista) {
+    public ResponseEntity<List<Experiencia>> listExperiencia() {
         List<Experiencia> expLista = expService.listExperiencia();
         return new ResponseEntity<>(expLista, HttpStatus.OK);
     }
