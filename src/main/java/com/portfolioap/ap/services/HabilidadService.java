@@ -42,4 +42,9 @@ public class HabilidadService {
         habRepo.deleteById(id);
     }
     
+    //Traer una habilidad por id
+    public Habilidad getHabilidad(String id){
+        return habRepo.findById(id).orElse(null);
+    }
+    
 }

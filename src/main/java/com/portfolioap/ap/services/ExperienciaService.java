@@ -41,4 +41,10 @@ public class ExperienciaService {
         expRepo.deleteById(id);
     }
     
+    //Traer por id
+    public Experiencia getExperiencia(String id){
+        return expRepo.findById(id).orElse(null);
+        
+    }
+    
 }

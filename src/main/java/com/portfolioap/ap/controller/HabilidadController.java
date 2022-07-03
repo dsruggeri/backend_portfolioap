@@ -1,14 +1,66 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.portfolioap.ap.controller;
 
-/**
- *
- * @author dsrug
- */
+import com.portfolioap.ap.model.Habilidad;
+import com.portfolioap.ap.services.HabilidadService;
+import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/habilidad")
+@CrossOrigin(origins = "http://localhost:4200")
 public class HabilidadController {
+    
+    private final HabilidadService habilidadService;
+    
+    public HabilidadController(HabilidadService habilidadService){
+        this.habilidadService = habilidadService;
+    }
+    
+    //Traer una habilidad (no lo vamos a usar)
+    @GetMapping("/id/{id}")
+    public ResponseEntity<Habilidad> getHabilidad(@PathVariable("id") String id) {
+        Habilidad habilidad = habilidadService.getHabilidad(id);
+        return new ResponseEntity<>(habilidad, HttpStatus.OK);
+    }
+
+    //trae TODAS las habilidades
+    @GetMapping("/listar")
+    public ResponseEntity<List<Habilidad>> listHabilidad(@RequestBody List<Habilidad> lista) {
+        List<Habilidad> habLista = habilidadService.listHabilidad();
+        return new ResponseEntity<>(habLista, HttpStatus.OK);
+    }
+
+    //Editar habilidad
+    @PutMapping("/update")
+    public ResponseEntity<Habilidad> editHabilidad(@RequestBody Habilidad habilidad) {
+        Habilidad habUpdate = habilidadService.editHabilidad(habilidad);
+        return new ResponseEntity<>(habUpdate, HttpStatus.OK);
+    }
+
+    //agregar habilidad
+    @PostMapping("/agregar")
+    public ResponseEntity<Habilidad> addHabilidad(@RequestBody Habilidad habilidad) {
+        Habilidad nuevaHabilidad = habilidadService.addHabilidad(habilidad);
+        return new ResponseEntity<>(nuevaHabilidad, HttpStatus.CREATED);
+
+    }
+
+    //borrar habilidad
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteHabilidad(@PathVariable String id) {
+        habilidadService.deleteHabilidad(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
     
 }
