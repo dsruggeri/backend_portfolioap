@@ -7,8 +7,10 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,8 +33,8 @@ public class EducacionController {
         return new ResponseEntity<>(educacion, HttpStatus.OK);
     }
     
-    @GetMapping("listar")
-    public ResponseEntity<List> listEducacion(@RequestBody List<Educacion> lista){
+    @GetMapping("/listar")
+    public ResponseEntity<List<Educacion>> listEducacion(@RequestBody List<Educacion> lista){
     
     List<Educacion> eduLista = eduService.listEducacion();
     
@@ -43,6 +45,20 @@ public class EducacionController {
     public ResponseEntity<Educacion> editEducacion(@RequestBody Educacion educacion){
         Educacion eduUpdate = eduService.editEducacion(educacion);
         return new ResponseEntity<>(eduUpdate, HttpStatus.OK);
+    }
+    
+    @PostMapping("/agregar")
+    public ResponseEntity<Educacion> addEducacion(@RequestBody Educacion educacion){
+        Educacion nuevaEducacion = eduService.addEducacion(educacion);
+        return new ResponseEntity<>(nuevaEducacion, HttpStatus.CREATED);
+        
+    }
+        
+    
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteEducacion (@PathVariable String id){
+        eduService.deleteEducacion(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     
     
