@@ -37,12 +37,12 @@ public class ExperienciaService {
     }
     
     //Eliminar una Experiencia de la base de datos
-    public void deleteExperiencia(String id){
+    public void deleteExperiencia(Long id){
         expRepo.deleteById(id);
     }
     
     //Traer por id
-    public Experiencia getExperiencia(String id){
+    public Experiencia getExperiencia(Long id){
         return expRepo.findById(id).orElse(null);
         
     }

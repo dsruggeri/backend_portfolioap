@@ -27,7 +27,7 @@ public class UsuarioService {
     } 
     
     //Traer un Usuario de la base de datos
-    public Usuario getUsuario(String id){
+    public Usuario getUsuario(Long id){
         return usuarioRepo.findById(id).orElse(null);
     } 
     
@@ -42,7 +42,7 @@ public class UsuarioService {
     }
     
     //Eliminar un Usuario de la base de datos
-    public void deleteUsuario(String id){
+    public void deleteUsuario(Long id){
         usuarioRepo.deleteById(id);
     }
     

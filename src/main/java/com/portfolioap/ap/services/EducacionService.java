@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class EducacionService {
 
+    
     private final EducacionRepository eduRepo;
 
     @Autowired
@@ -30,7 +31,7 @@ public class EducacionService {
     }
 
     //Traer una Educacion
-    public Educacion getEducacion(String id) {
+    public Educacion getEducacion(Long id) {
         return eduRepo.findById(id).orElse(null);
     }
 
@@ -40,7 +41,7 @@ public class EducacionService {
     }
 
     //Eliminar una Educacion de la base de datos
-    public void deleteEducacion(String id) {
+    public void deleteEducacion(Long id) {
         eduRepo.deleteById(id);
     }
 

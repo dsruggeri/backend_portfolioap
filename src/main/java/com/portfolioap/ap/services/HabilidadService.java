@@ -38,12 +38,12 @@ public class HabilidadService {
     }
     
     //Eliminar una Habilidad de la base de datos
-    public void deleteHabilidad(String id){
+    public void deleteHabilidad(Long id){
         habRepo.deleteById(id);
     }
     
     //Traer una habilidad por id
-    public Habilidad getHabilidad(String id){
+    public Habilidad getHabilidad(Long id){
         return habRepo.findById(id).orElse(null);
     }
     

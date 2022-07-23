@@ -5,6 +5,6 @@ import com.portfolioap.ap.model.Habilidad;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface HabilidadRepository extends JpaRepository<Habilidad, String> {
+public interface HabilidadRepository extends JpaRepository<Habilidad, Long> {
     
 }

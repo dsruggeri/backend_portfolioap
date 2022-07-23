@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/experiencia")
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 public class ExperienciaController {
 
     private final ExperienciaService expService;
@@ -29,8 +29,8 @@ public class ExperienciaController {
 
     //Traer una educacion (no lo vamos a usar)
     @GetMapping("/id/{id}")
-    public ResponseEntity<Experiencia> getExperiencia(@PathVariable("id") String id) {
-        Experiencia experiencia = expService.getExperiencia(id);
+    public ResponseEntity<Experiencia> getExperiencia(@PathVariable("id") Long idExperiencia) {
+        Experiencia experiencia = expService.getExperiencia(idExperiencia);
         return new ResponseEntity<>(experiencia, HttpStatus.OK);
     }
 
@@ -58,8 +58,8 @@ public class ExperienciaController {
 
     //borrar experiencia
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteExperiencia(@PathVariable String id) {
-        expService.deleteExperiencia(id);
+    public ResponseEntity<?> deleteExperiencia(@PathVariable("id") Long idExperiencia) {
+        expService.deleteExperiencia(idExperiencia);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

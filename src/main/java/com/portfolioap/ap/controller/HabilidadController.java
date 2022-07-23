@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/habilidad")
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 public class HabilidadController {
     
     private final HabilidadService habilidadService;
@@ -29,8 +29,8 @@ public class HabilidadController {
     
     //Traer una habilidad (no lo vamos a usar)
     @GetMapping("/id/{id}")
-    public ResponseEntity<Habilidad> getHabilidad(@PathVariable("id") String id) {
-        Habilidad habilidad = habilidadService.getHabilidad(id);
+    public ResponseEntity<Habilidad> getHabilidad(@PathVariable("id") Long idHabilidad) {
+        Habilidad habilidad = habilidadService.getHabilidad(idHabilidad);
         return new ResponseEntity<>(habilidad, HttpStatus.OK);
     }
 
@@ -58,8 +58,8 @@ public class HabilidadController {
 
     //borrar habilidad
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteHabilidad(@PathVariable String id) {
-        habilidadService.deleteHabilidad(id);
+    public ResponseEntity<?> deleteHabilidad(@PathVariable("id") Long idHabilidad) {
+        habilidadService.deleteHabilidad(idHabilidad);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     

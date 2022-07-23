@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/educacion")
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 public class EducacionController {
     
     private final EducacionService eduService;
@@ -28,8 +28,8 @@ public class EducacionController {
     }
     
     @GetMapping("/id/{id}")
-    public ResponseEntity<Educacion> getEducacion(@PathVariable("id") String id){
-        Educacion educacion = eduService.getEducacion(id);
+    public ResponseEntity<Educacion> getEducacion(@PathVariable("id") Long idEducacion){
+        Educacion educacion = eduService.getEducacion(idEducacion);
         return new ResponseEntity<>(educacion, HttpStatus.OK);
     }
     
@@ -49,6 +49,7 @@ public class EducacionController {
     
     @PostMapping("/agregar")
     public ResponseEntity<Educacion> addEducacion(@RequestBody Educacion educacion){
+        
         Educacion nuevaEducacion = eduService.addEducacion(educacion);
         return new ResponseEntity<>(nuevaEducacion, HttpStatus.CREATED);
         
@@ -56,8 +57,8 @@ public class EducacionController {
         
     
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteEducacion (@PathVariable String id){
-        eduService.deleteEducacion(id);
+    public ResponseEntity<?> deleteEducacion (@PathVariable("id") Long idEducacion){
+        eduService.deleteEducacion(idEducacion);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     
