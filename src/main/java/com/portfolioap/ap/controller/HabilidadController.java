@@ -6,6 +6,7 @@ import com.portfolioap.ap.services.HabilidadService;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +43,7 @@ public class HabilidadController {
     }
 
     //Editar habilidad
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update")
     public ResponseEntity<Habilidad> editHabilidad(@RequestBody Habilidad habilidad) {
         Habilidad habUpdate = habilidadService.editHabilidad(habilidad);
@@ -49,6 +51,7 @@ public class HabilidadController {
     }
 
     //agregar habilidad
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/agregar")
     public ResponseEntity<Habilidad> addHabilidad(@RequestBody Habilidad habilidad) {
         Habilidad nuevaHabilidad = habilidadService.addHabilidad(habilidad);
@@ -57,6 +60,7 @@ public class HabilidadController {
     }
 
     //borrar habilidad
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteHabilidad(@PathVariable("id") Long idHabilidad) {
         habilidadService.deleteHabilidad(idHabilidad);

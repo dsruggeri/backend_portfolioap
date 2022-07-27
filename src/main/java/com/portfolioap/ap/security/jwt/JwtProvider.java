@@ -45,7 +45,7 @@ public class JwtProvider {
              Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
              return true;
          } catch (MalformedJwtException e) {
-             logger.error("Error en formación ed Token");
+             logger.error("Error en formación de Token");
          } catch (UnsupportedJwtException e) {
              logger.error("Token no válido");
          }catch (ExpiredJwtException e) {
