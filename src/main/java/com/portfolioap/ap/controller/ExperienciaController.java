@@ -1,13 +1,10 @@
 package com.portfolioap.ap.controller;
 
-import com.portfolioap.ap.model.Educacion;
 import com.portfolioap.ap.model.Experiencia;
 import com.portfolioap.ap.services.ExperienciaService;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,7 +40,7 @@ public class ExperienciaController {
     }
 
     //Editar experiencia
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @PutMapping("/update")
     public ResponseEntity<Experiencia> editExperiencia(@RequestBody Experiencia experiencia) {
         Experiencia expUpdate = expService.editExperiencia(experiencia);
@@ -51,7 +48,7 @@ public class ExperienciaController {
     }
 
     //agregar experiencia
-    @PreAuthorize("hasRole('ADMIN')")
+   
     @PostMapping("/agregar")
     public ResponseEntity<Experiencia> addExperiencia(@RequestBody Experiencia experiencia) {
         Experiencia nuevaExperiencia = expService.addExperiencia(experiencia);
@@ -60,7 +57,7 @@ public class ExperienciaController {
     }
 
     //borrar experiencia
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteExperiencia(@PathVariable("id") Long idExperiencia) {
         expService.deleteExperiencia(idExperiencia);

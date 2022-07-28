@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Usuario  {
+public class Persona  {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,10 +32,10 @@ public class Usuario  {
     @OneToMany (mappedBy = "idExperiencia")
     private List<Experiencia> experienciaUsuario;
 
-    public Usuario() {
+    public Persona() {
     }
 
-    public Usuario(String nombre, String apellido, String titulo, String descripcion, String fotoPerfil) {
+    public Persona(String nombre, String apellido, String titulo, String descripcion, String fotoPerfil) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.titulo = titulo;
@@ -43,7 +43,7 @@ public class Usuario  {
         this.fotoPerfil = fotoPerfil;
     }
 
-    public Usuario(Long id, String nombre, String apellido, String titulo, String descripcion, String fotoPerfil, List<Educacion> educacionUsuario, List<Habilidad> habilidadUsuario, List<Experiencia> experienciaUsuario) {
+    public Persona(Long id, String nombre, String apellido, String titulo, String descripcion, String fotoPerfil, List<Educacion> educacionUsuario, List<Habilidad> habilidadUsuario, List<Experiencia> experienciaUsuario) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
