@@ -12,12 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ExperienciaService {
     
-    private final ExperienciaRepository expRepo;
-    
     @Autowired
-    public ExperienciaService(ExperienciaRepository expRepo){
-        this.expRepo = expRepo;
-    }
+    ExperienciaRepository expRepo;
+    
+    
     
     //CRUD básico
     
@@ -32,8 +30,13 @@ public class ExperienciaService {
     }
     
     //Editar una Experiencia recibida por parámetro
-    public Experiencia editExperiencia(Experiencia experiencia){
-        return expRepo.save(experiencia);
+    public Experiencia editExperiencia(Experiencia experiencia, Long idExperiencia){
+        Experiencia expUpdate = expRepo.findById(idExperiencia).get();
+        expUpdate.setTituloExperiencia(experiencia.getTituloExperiencia());
+        expUpdate.setDescripcionExperiencia(experiencia.getDescripcionExperiencia());
+        expUpdate.setFecha(experiencia.getFecha());
+        expUpdate.setImagenExperiencia(experiencia.getImagenExperiencia());
+        return expRepo.save(expUpdate);
     }
     
     //Eliminar una Experiencia de la base de datos

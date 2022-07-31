@@ -12,12 +12,10 @@ import com.portfolioap.ap.repository.PersonaRepository;
 @Transactional
 public class PersonaService {
     
-    private final PersonaRepository personaRepo;
-    
     @Autowired
-    public PersonaService(PersonaRepository personaRepo){
-        this.personaRepo = personaRepo;
-    }
+    PersonaRepository personaRepo;
+    
+    
     
     //CRUD básico
     
@@ -37,8 +35,16 @@ public class PersonaService {
     }
     
     //Editar un Persona recibido por parámetro
-    public Persona editPersona(Persona persona){
-        return personaRepo.save(persona);
+    public Persona editPersona(Persona persona, Long id){
+        Persona personaUpdate = personaRepo.findById(id).get();
+        personaUpdate.setApellido(persona.getApellido());
+        personaUpdate.setNombre(persona.getNombre());
+        personaUpdate.setDescripcion(persona.getDescripcion());
+        personaUpdate.setFotoPerfil(persona.getFotoPerfil());
+        personaUpdate.setTitulo(persona.getTitulo());
+        
+        
+        return personaRepo.save(personaUpdate);
     }
     
     //Eliminar un Persona de la base de datos

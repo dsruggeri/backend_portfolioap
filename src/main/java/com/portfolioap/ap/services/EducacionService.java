@@ -11,13 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class EducacionService {
 
-    
-    private final EducacionRepository eduRepo;
-
     @Autowired
-    public EducacionService(EducacionRepository eduRepo) {
-        this.eduRepo = eduRepo;
-    }
+    EducacionRepository eduRepo;
+
+//    @Autowired
+//    public EducacionService(EducacionRepository eduRepo) {
+//        this.eduRepo = eduRepo;
+//    }
 
     //CRUD básico
     //Guardar una educacion en la base de datos
@@ -36,8 +36,13 @@ public class EducacionService {
     }
 
     //Editar una educacion recibida por parámetro
-    public Educacion editEducacion(Educacion educacion) {
-        return eduRepo.save(educacion);
+    public Educacion editEducacion(Educacion educacion, Long idEducacion) {
+        Educacion eduUpdate = eduRepo.findById(idEducacion).get();
+        eduUpdate.setDescripcionEducacion(educacion.getDescripcionEducacion());
+        eduUpdate.setImagenEducacion(educacion.getImagenEducacion());
+        eduUpdate.setPeriodo(educacion.getPeriodo());
+        eduUpdate.setTituloEducacion(educacion.getTituloEducacion());
+        return eduRepo.save(eduUpdate);
     }
 
     //Eliminar una Educacion de la base de datos

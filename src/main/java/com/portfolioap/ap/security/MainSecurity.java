@@ -1,8 +1,8 @@
+package com.portfolioap.ap.security;
 
-package com.portfolioap.ap;
-
-import com.portfolioap.ap.repository.UserRepository;
+import com.portfolioap.ap.security.jwt.JwtEntryPoint;
 import com.portfolioap.ap.security.jwt.JwtTokenFilter;
+import com.portfolioap.ap.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -20,50 +20,54 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class AplicationSecurityConfig extends WebSecurityConfigurerAdapter{
-    
+public class MainSecurity extends WebSecurityConfigurerAdapter {
+
     @Autowired
-    private UserRepository userRepo;
-    
+    UserDetailsServiceImpl userDetailsService;
+
     @Autowired
-    private JwtTokenFilter jwtTokenFilter; 
-    
+    JwtEntryPoint jwtEntryPoint;
+
     @Bean
-    PasswordEncoder passwordEncoder(){
+    public JwtTokenFilter jwtTokenFilter() {
+        return new JwtTokenFilter();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService((username) -> userRepo.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("No se encuentra el mail")));
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
-    
-    @Override
+
     @Bean
+    @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-    
+
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
-    
+
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
-        http.csrf().disable()
-                .authorizeRequests().antMatchers("/api/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
+    protected void configure(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/auth/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                .httpBasic();
-        
-        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+                .exceptionHandling().authenticationEntryPoint(jwtEntryPoint)
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                
+        http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+                
+                
     }
-    
-    
-    
-    
+
 }

@@ -33,8 +33,13 @@ public class HabilidadService {
     }
     
     //Editar una Habilidad recibida por parámetro
-    public Habilidad editHabilidad(Habilidad habilidad){
-        return habRepo.save(habilidad);
+    public Habilidad editHabilidad(Habilidad habilidad, Long idHabilidad){
+        Habilidad habUpdate = habRepo.findById(idHabilidad).get();
+        habUpdate.setDescripcionHabilidad(habilidad.getDescripcionHabilidad());
+        habUpdate.setImagenHabilidad(habilidad.getImagenHabilidad());
+        habUpdate.setNivel(habilidad.getNivel());
+        habUpdate.setTituloHabilidad(habilidad.getTituloHabilidad());
+        return habRepo.save(habUpdate);
     }
     
     //Eliminar una Habilidad de la base de datos

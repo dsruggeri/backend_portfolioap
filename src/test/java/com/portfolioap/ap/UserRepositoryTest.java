@@ -1,8 +1,8 @@
 
 package com.portfolioap.ap;
 
-import com.portfolioap.ap.model.User;
-import com.portfolioap.ap.repository.UserRepository;
+import com.portfolioap.ap.security.model.User;
+import com.portfolioap.ap.security.repository.UserRepository;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
